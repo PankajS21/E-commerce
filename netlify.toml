@@ -1,7 +1,4 @@
 [build]
+  base = "frontend"
   command = "npm run build"
-  publish = "build"
-
-# If your app is inside /client folder:
-# publish = "client/build"
-# base = "client"
+  publish = "frontend/build"
