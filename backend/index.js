@@ -14,7 +14,7 @@ app.use(cors());
 
 mongoose.connect(
   // "mongodb+srv://psingh21022000:psingh21022000@e-commerce.8qcscng.mongodb.net/"
-  "mongodb+srv://pankajs21022000:pankajs21022000@ecommerce-proj.ilkad3s.mongodb.net/?retryWrites=true&w=majority&appName=ecommerce-proj"
+  "mongodb+srv://pr8171408_ecommerce:pr8171408_ecommerce@ecommerce.pa6hc47.mongodb.net/?appName=Ecommerce"
 );
 
 app.get("/", (req, res) => {
