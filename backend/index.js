@@ -5,6 +5,14 @@ import multer from "multer";
 import path from "path";
 import cors from "cors";
 import { type } from "os";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
+cloudinary.config({
+  cloud_name: "dju8s3dlh",
+  api_key: "823784469441117",
+  api_secret: "Yk9797CCjU6lsNFP53IyM3s79ns",
+});
 
 const port = 4000;
 
@@ -23,13 +31,21 @@ app.get("/", (req, res) => {
 
 // Image storage engine
 
-const storage = multer.diskStorage({
-  destination: "./upload/images",
-  filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}_${path.extname(file.originalname)}`
-    );
+// const storage = multer.diskStorage({
+//   destination: "./upload/images",
+//   filename: (req, file, cb) => {
+//     return cb(
+//       null,
+//       `${file.fieldname}_${Date.now()}_${path.extname(file.originalname)}`
+//     );
+//   },
+// });
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "ecommerce_products",
+    allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
 
@@ -43,7 +59,7 @@ app.use("/images", express.static(path.join(process.cwd(), "upload/images")));
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `https://e-commerce-ox5r.onrender.com/images/${req.file.filename}`,
+    image_url: req.file.path,
   });
 });
 
